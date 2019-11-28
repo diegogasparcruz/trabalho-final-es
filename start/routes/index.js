@@ -1,0 +1,41 @@
+'use strict'
+
+/*
+|--------------------------------------------------------------------------
+| Routes
+|--------------------------------------------------------------------------
+|
+| Http routes are entry points to your web application. You can create
+| routes for different URLs and bind Controller actions to them.
+|
+| A complete guide on routing is available here.
+| http://adonisjs.com/docs/4.1/routing
+|
+*/
+
+/** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
+const Route = use('Route')
+
+Route.get('/', () => {
+  return { greeting: 'Hello world in JSON' }
+}).as('home')
+
+/**
+ * IMPORTA AS ROTAS DE AUTENTICAÇÃO
+ */
+require('./auth')
+
+/**
+ * IMPORTA AS ROTAS DO ADMIN
+ */
+require('./admin')
+
+/**
+ * IMPORTA AS ROTAS DO SUPERVISOR
+ */
+require('./supervisor')
+
+/**
+ * IMPORTA AS ROTAS DO EMPREGADO
+ */
+require('./employee')
