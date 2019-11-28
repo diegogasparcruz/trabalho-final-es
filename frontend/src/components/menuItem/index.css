@@ -1,0 +1,21 @@
+.item-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.active{
+    background-color: #666;
+}
+
+.item-container:hover{
+    background-color: #666;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.item-container:hover #icon, .item-container:hover  #text{
+    color: #fff;
+    transition: all .2s;
+}
