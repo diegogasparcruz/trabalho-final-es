@@ -14,12 +14,11 @@ class UserController {
         .orderBy('created_at', 'desc')
         .fetch()
 
-      return response.status(200).send({ data: users })
+      return response.status(200).json({ data: users })
 
     } catch (error) {
       return response.status(error.status)
     }
-
 
   }
 
@@ -29,10 +28,10 @@ class UserController {
 
     try {
 
-      const { id_department, name, email, password, address, genre, salary, dt_nasc } = request.all()
+      const { department_id, name, email, password, address, genre, salary, dt_nasc } = request.all()
 
       const user = await User.create({
-        id_department,
+        department_id,
         name,
         email,
         password,
@@ -48,11 +47,11 @@ class UserController {
 
       trx.commit()
 
-      return response.status(201).send({ data: user })
+      return response.status(201).json({ data: user })
 
     } catch (error) {
       await trx.rollback()
-      return response.status(400).send({ message: 'Erro ao realizar cadastro!' })
+      return response.status(400).json({ message: 'Erro ao realizar cadastro!' })
     }
 
   }
@@ -61,14 +60,15 @@ class UserController {
 
     try {
 
-      const user = await User.findOrFail(params.id)
+      const user = await User.query()
+        .where('id', params.id)
+        .with('dependents')
+        .fetch()
 
-      // await user.load('dependents')
-
-      return response.status(200).send({ data: user })
+      return response.status(200).json({ data: user })
 
     } catch (error) {
-      return response.status(500).send({ message: 'Erro ao listar!' })
+      return response.status(500).json({ message: 'Erro ao listar!' })
     }
 
   }
@@ -84,10 +84,10 @@ class UserController {
       user.merge(data)
       await user.save()
 
-      return response.status(200).send({ data: user })
+      return response.status(200).json({ data: user })
 
     } catch (error) {
-      return response.status(400).send({ message: 'Erro ao atualizar!' })
+      return response.status(400).json({ message: 'Erro ao atualizar!' })
     }
 
   }

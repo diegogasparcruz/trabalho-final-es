@@ -5,6 +5,14 @@ const Model = use('Model')
 
 class Dependent extends Model {
 
+  static get hidden() {
+    return ['created_at', 'updated_at']
+  }
+
+  user() {
+    return this.belongsTo('App/Models/User')
+  }
+
 }
 
 module.exports = Dependent

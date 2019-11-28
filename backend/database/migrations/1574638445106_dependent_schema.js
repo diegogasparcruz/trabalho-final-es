@@ -8,7 +8,7 @@ class DependentSchema extends Schema {
     this.create('dependents', (table) => {
       table.increments()
       table
-        .integer('id_user')
+        .integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')

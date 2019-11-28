@@ -13,7 +13,7 @@ class DepartmentController {
         .orderBy('created_at', 'desc')
         .fetch()
 
-      return response.status(200).send({ data: departments })
+      return response.status(200).json({ data: departments })
 
     } catch (error) {
       return response.status(error.status)
@@ -34,11 +34,11 @@ class DepartmentController {
 
       trx.commit()
 
-      return response.status(201).send({ data: department })
+      return response.status(201).json({ data: department })
 
     } catch (error) {
       await trx.rollback()
-      return response.status(400).send({ message: 'Erro ao realizar cadastro!' })
+      return response.status(400).json({ message: 'Erro ao realizar cadastro!' })
     }
 
   }
@@ -52,10 +52,10 @@ class DepartmentController {
         .with('projects')
         .fetch()
 
-      return response.status(200).send({ data: department })
+      return response.status(200).json({ data: department })
 
     } catch (error) {
-      return response.status(500).send({ message: 'Erro ao listar departamento!' })
+      return response.status(500).json({ message: 'Erro ao listar departamento!' })
     }
 
   }
@@ -71,10 +71,10 @@ class DepartmentController {
       department.merge(data)
       await department.save()
 
-      return response.status(200).send({ data: department })
+      return response.status(200).json({ data: department })
 
     } catch (error) {
-      return response.status(400).send({ message: 'Erro ao atualizar departamento!' })
+      return response.status(400).json({ message: 'Erro ao atualizar departamento!' })
     }
 
   }

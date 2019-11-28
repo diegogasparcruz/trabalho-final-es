@@ -29,7 +29,7 @@ class User extends Model {
   }
 
   static get hidden() {
-    return ['password']
+    return ['password', 'created_at', 'updated_at']
   }
 
   /**
@@ -50,8 +50,18 @@ class User extends Model {
     return this.hasMany('App/Models/Dependent')
   }
 
+  department() {
+    return this.belongsTo('App/Models/Department')
+  }
+
   project() {
     return this.hasOne('App/Models/Project')
+  }
+
+  projects() {
+    return this
+      .belongsToMany('App/Models/Project', 'project_id', 'user_id')
+      .pivotTable('project_user')
   }
 
 }

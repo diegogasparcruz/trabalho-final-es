@@ -41,7 +41,10 @@ Route.group(() => {
    * User resource routes
    */
 
-  Route.get('/supervisors/:id', 'SupervisorController.becomeSupervisor')
+  Route.get('/supervisors', 'SupervisorController.index')
+  Route.get('/supervisors/:id', 'SupervisorController.show')
+  Route.get('/supervisors/becomeEmployee/:id', 'SupervisorController.becomeEmployee')
+  Route.get('/supervisors/becomeSupervisor/:id', 'SupervisorController.becomeSupervisor')
 
 })
   .prefix('v1/admin')

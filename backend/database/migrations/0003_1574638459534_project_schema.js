@@ -8,14 +8,14 @@ class ProjectSchema extends Schema {
     this.create('projects', (table) => {
       table.increments()
       table
-        .integer('id_department')
+        .integer('department_id')
         .unsigned()
         .references('id')
         .inTable('departments')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table
-        .integer('id_supervisor')
+        .integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')

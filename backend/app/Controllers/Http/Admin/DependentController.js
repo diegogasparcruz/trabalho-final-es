@@ -10,14 +10,14 @@ class DependentController {
     try {
 
       const dependents = await Dependent.query()
-        .orderBy('id_user', 'asc')
+        .orderBy('user_id', 'asc')
         .fetch()
 
       if (!dependents) {
-        return response.status(400).send({ message: 'Não há dependentes' })
+        return response.status(400).json({ message: 'Não há dependentes' })
       }
 
-      return response.status(200).send({ data: dependents })
+      return response.status(200).json({ data: dependents })
 
     } catch (error) {
       return response.status(error.status)
@@ -39,16 +39,16 @@ class DependentController {
         name,
         genre,
         dt_nasc,
-        id_user: employeeID
+        user_id: employeeID
       }, trx)
 
       trx.commit()
 
-      return response.status(201).send({ data: dependent })
+      return response.status(201).json({ data: dependent })
 
     } catch (error) {
       await trx.rollback()
-      return response.status(400).send({ message: 'Erro ao realizar cadastro!' })
+      return response.status(400).json({ message: 'Erro ao realizar cadastro!' })
     }
 
   }
@@ -59,10 +59,10 @@ class DependentController {
 
       const dependent = await Dependent.findOrFail(params.id)
 
-      return response.status(200).send({ data: dependent })
+      return response.status(200).json({ data: dependent })
 
     } catch (error) {
-      return response.status(500).send({ message: 'Erro ao listar!' })
+      return response.status(500).json({ message: 'Erro ao listar!' })
     }
 
   }
@@ -78,10 +78,10 @@ class DependentController {
       dependent.merge(data)
       await dependent.save()
 
-      return response.status(200).send({ data: dependent })
+      return response.status(200).json({ data: dependent })
 
     } catch (error) {
-      return response.status(400).send({ message: 'Erro ao atualizar!' })
+      return response.status(400).json({ message: 'Erro ao atualizar!' })
     }
 
   }

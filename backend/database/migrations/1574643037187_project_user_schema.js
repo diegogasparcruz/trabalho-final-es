@@ -5,31 +5,30 @@ const Schema = use('Schema')
 
 class ProjectUserSchema extends Schema {
   up() {
-    this.create('project_users', (table) => {
+    this.create('project_user', (table) => {
       table.increments()
       table
-        .integer('id_project')
+        .integer('project_id')
         .unsigned()
         .references('id')
         .inTable('projects')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table
-        .integer('id_user')
+        .integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table.date('date_begin').notNullable()
-      table.date('date_end').notNullable()
+      table.date('date_end')
       table.string('week_hours').notNullable()
-      table.timestamps()
     })
   }
 
   down() {
-    this.drop('project_users')
+    this.drop('project_user')
   }
 }
 
