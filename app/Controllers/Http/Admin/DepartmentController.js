@@ -47,7 +47,10 @@ class DepartmentController {
 
     try {
 
-      const department = await Department.findOrFail(params.id)
+      const department = await Department.query()
+        .where('id', params.id)
+        .with('projects')
+        .fetch()
 
       return response.status(200).send({ data: department })
 
