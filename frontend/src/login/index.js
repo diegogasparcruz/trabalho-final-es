@@ -5,20 +5,25 @@ import './index.css'
 import best_place from '../assets/best_place.svg'
 
 import api from '../service/api'
+import { login } from '../service/auth'
 
-export default function Login() {
+export default function Login({ history }) {
 
     const [email, setEmail] = useState('admin@admin.com')
     const [password, setPassword] = useState('admin')
 
-
-
     const handleLogin = async function (e) {
         e.preventDefault()
-        console.log(email, password)
+        try {
+            const response = await api.post('/v1/auth/login', { email, password })
+            login(response.data.token)
+            console.log(response.data.token)
 
-        const token = await api.post('/v1/auth/login', { email, password })
-        console.log(token)
+            history.push('/home')
+        } catch (err) {
+            console.log(err)
+            alert('erro no login')
+        }
     }
 
     return (

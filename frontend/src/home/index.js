@@ -24,7 +24,10 @@ import {
     faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 
-export default function Home() {
+
+import { logout } from '../service/auth'
+
+export default function Home({ history }) {
 
     const [showModalLogout, setShowLogoutModal] = useState(false)
 
@@ -43,6 +46,11 @@ export default function Home() {
             return <ListDepartaments />
         else
             return <div />
+    }
+
+    const handleLogout = () => {
+        logout()
+        history.push('/')
     }
 
     return (
@@ -80,7 +88,7 @@ export default function Home() {
 
                 <Modal.Footer className='d-flex justify-content-around'>
                     <Button variant="secondary" onClick={handleClose}>Cancelar</Button>
-                    <Button href='/' variant="danger">Sair</Button>
+                    <Button onClick={handleLogout} variant="danger">Sair</Button>
                 </Modal.Footer>
             </Modal>
 
