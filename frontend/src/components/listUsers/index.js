@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Container } from 'react-bootstrap'
+import { Table, Container, Image } from 'react-bootstrap'
 
 import api from '../../service/api.js'
+
+
+import notFound from '../../assets/page_not_found.svg'
 
 export default function ListUsers() {
 
@@ -34,17 +37,25 @@ export default function ListUsers() {
 
                 <tbody>
                     {
-                        users.map(user => (
-                            <tr key={user.id}>
+                        users.length > 0
+                            ? users.map(user => (
+                                <tr key={user.id}>
 
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.address}</td>
-                                <td>{user.salary}</td>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.address}</td>
+                                    <td>{user.salary}</td>
 
+                                </tr>
+                            ))
+
+                            : <tr>
+                                <td colSpan='5'>
+                                    <Image src={notFound} className='d-flex mx-auto' style={{ width: "250px" }} />
+                                    <p className='text-center'>Não há usuários cadastrados</p>
+                                </td>
                             </tr>
-                        ))
                     }
                 </tbody>
             </Table>

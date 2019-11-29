@@ -24,7 +24,6 @@ import {
     faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 
-
 import { logout } from '../service/auth'
 
 export default function Home({ history }) {
