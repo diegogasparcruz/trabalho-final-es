@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class ProjectUserSchema extends Schema {
   up() {
-    this.create('project_user', (table) => {
+    this.create('project_users', (table) => {
       table.increments()
       table
         .integer('project_id')
@@ -21,14 +21,11 @@ class ProjectUserSchema extends Schema {
         .inTable('users')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
-      table.date('date_begin').notNullable()
-      table.date('date_end')
-      table.string('week_hours').notNullable()
     })
   }
 
   down() {
-    this.drop('project_user')
+    this.drop('project_users')
   }
 }
 

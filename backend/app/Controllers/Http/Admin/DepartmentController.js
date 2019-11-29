@@ -47,10 +47,9 @@ class DepartmentController {
 
     try {
 
-      const department = await Department.query()
-        .where('id', params.id)
-        .with('projects')
-        .fetch()
+      const department = await Department.find(params.id)
+
+      await department.loadMany(['projects', 'users'])
 
       return response.status(200).json({ data: department })
 
