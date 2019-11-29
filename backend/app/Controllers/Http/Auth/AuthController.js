@@ -14,6 +14,7 @@ class AuthController {
 
   }
 
+  // Dados do usuário logado
   async isLogged({ response, auth }) {
 
     const user = await User.find(auth.user.id)
