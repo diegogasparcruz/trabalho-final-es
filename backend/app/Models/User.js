@@ -61,7 +61,7 @@ class User extends Model {
   projects() {
     return this
       .belongsToMany('App/Models/Project', 'project_id', 'user_id')
-      .pivotTable('project_user')
+      .pivotTable('project_users')
   }
 
 }
