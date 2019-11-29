@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Container, Image } from 'react-bootstrap'
+import { Table, Container, Image, Row, Col, Button } from 'react-bootstrap'
 
 
 import api from '../../service/api'
 
 
 import notFound from '../../assets/page_not_found.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListDepartaments() {
 
@@ -22,8 +24,19 @@ export default function ListDepartaments() {
 
     return (
         <Container className='mt-5 d-flex flex-column justify-content-center align-items-center'>
+            <Row className='align-items-center justify-content-center'>
+                <Col>
+                    <h1>Departamentos</h1>
+                </Col>
 
-            <h1>Departamentos</h1>
+                <Col>
+                    <Button>
+                        <FontAwesomeIcon className='mr-1' icon={faPlus} />
+                        Adicionar
+                    </Button>
+                </Col>
+            </Row>
+
             <Table striped bordered hover  >
                 <thead>
                     <tr>

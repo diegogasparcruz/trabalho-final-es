@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     Container,
@@ -26,9 +26,23 @@ import {
 
 import { logout } from '../service/auth'
 
+import api from '../service/api'
+
 export default function Home({ history }) {
 
     const [showModalLogout, setShowLogoutModal] = useState(false)
+
+    const [user, setUser] = useState([])
+
+    useEffect(() => {
+        async function loadUser() {
+            const userResponse = await api.get('/v1/auth/isLogged')
+            setUser(userResponse.data.user)
+        }
+
+        loadUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleClose = () => setShowLogoutModal(false);
     const handleShow = () => setShowLogoutModal(true);
@@ -57,7 +71,7 @@ export default function Home({ history }) {
             <Row className='h-100 p-0 m-0'>
                 <Col className='col-lg-2 bg-dark m-0 h-100  px-0'>
                     <Image src={male_avatar} fluid className='py-2' style={{ padding: '60px' }} />
-                    <p className='text-white text-center mb-5'>Bem-vindo {'{username}'}</p>
+                    <p className='text-white text-center mb-5'>Bem-vindo {user.name}</p>
 
                     <Container id='menu-container' className='p-0 m-0'>
                         <MenuItem text='Projetos' icon={faTasks} active callback={() => handleSelected(0)} />
@@ -68,7 +82,7 @@ export default function Home({ history }) {
                 </Col>
 
                 <Col className='h-100 p-0 m-0'
-                    style={{ maxHeight: "100%", overflow: "scroll" }}>
+                    style={{ maxHeight: "100%", overflowY: "scroll" }}>
                     {
                         getContent(selected)
                     }
