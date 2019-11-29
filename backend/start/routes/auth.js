@@ -10,5 +10,6 @@ const Route = use('Route')
 Route.group(() => {
 
   Route.post('/login', 'AuthController.login').as('auth.login')
+  Route.get('/isLogged', 'AuthController.isLogged').middleware(['auth'])
 
 }).prefix('v1/auth').namespace('Auth')
