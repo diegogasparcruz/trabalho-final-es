@@ -32,9 +32,9 @@ export default function MenuItem(props) {
     }
 
     return (
-        <div className={'item-container w-100' + props.className} onClick={f}>
+        <div className={'item-container w-100 ' + props.className} onClick={f}>
 
-            <Row className={'w-100 d-flex align-items-center ' + (props.active ? 'active' : 'text-secondary')}>
+            <Row className={'w-100 d-flex align-items-center ' + (props.active ? ' active' : ' text-secondary')}>
 
                 <FontAwesomeIcon
                     id='icon'
