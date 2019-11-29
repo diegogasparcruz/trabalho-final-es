@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table, Container } from 'react-bootstrap'
 
 import api from '../../service/api.js'
 
 export default function ListUsers() {
 
-    //const users = await api.get('/v1/admin/users/')
-    //console.log(users)
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        async function loadUsers() {
+            const usersResponse = await api.get('/v1/admin/users/')
+            setUsers(usersResponse.data.data)
+        }
+
+        loadUsers()
+    }, [])
+
 
     return (
         <Container className='mt-5 d-flex flex-column justify-content-center align-items-center'>
@@ -22,16 +31,21 @@ export default function ListUsers() {
                         <th>Salário</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                        <td>rua a</td>
-                        <td>1010</td>
+                    {
+                        users.map(user => (
+                            <tr key={user.id}>
 
-                    </tr>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.address}</td>
+                                <td>{user.salary}</td>
 
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </Table>
         </Container >
