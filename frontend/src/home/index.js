@@ -44,13 +44,13 @@ export default function Home({ history }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const handleClose = () => setShowLogoutModal(false);
-    const handleShow = () => setShowLogoutModal(true);
+    const handleClose = () => setShowLogoutModal(false)
+    const handleShow = () => setShowLogoutModal(true)
 
-    const [selected, setSelected] = useState(0);
-    const handleSelected = i => setSelected(i);
+    const [selected, setSelected] = useState(0)
+    const handleSelected = i => setSelected(i)
 
-    const getContent = (selected) => {
+    const getContent = () => {
         if (selected === 0)
             return <ListProjects />
         else if (selected === 1)
@@ -74,7 +74,7 @@ export default function Home({ history }) {
                     <p className='text-white text-center mb-5'>Bem-vindo {user.name}</p>
 
                     <Container id='menu-container' className='p-0 m-0'>
-                        <MenuItem text='Projetos' icon={faTasks} active callback={() => handleSelected(0)} />
+                        <MenuItem text='Projetos' icon={faTasks} callback={() => handleSelected(0)} />
                         <MenuItem text='Usuários' icon={faUsers} callback={() => handleSelected(1)} />
                         <MenuItem text='Departamentos' icon={faProjectDiagram} callback={() => handleSelected(2)} />
                         <MenuItem text='Sair' icon={faSignOutAlt} callback={handleShow} />
@@ -84,7 +84,7 @@ export default function Home({ history }) {
                 <Col className='h-100 p-0 m-0'
                     style={{ maxHeight: "100%", overflowY: "scroll" }}>
                     {
-                        getContent(selected)
+                        getContent()
                     }
                 </Col>
 
