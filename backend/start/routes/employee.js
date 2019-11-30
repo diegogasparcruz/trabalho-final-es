@@ -19,7 +19,7 @@ Route.group(() => {
    * User resource routes
    */
 
-  Route.resource('users', 'UserController').apiOnly()
+  Route.get('users', 'UserController.info')
 
 })
   .prefix('v1/employee')
