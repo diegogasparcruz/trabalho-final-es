@@ -19,7 +19,8 @@ Route.group(() => {
    * User resource routes
    */
 
-  Route.get('users', 'UserController.info')
+  Route.get('/users/info', 'UserController.info')
+  Route.get('/users/historyProjects', 'UserController.historyProjects')
 
 })
   .prefix('v1/employee')
