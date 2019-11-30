@@ -13,7 +13,9 @@ Route.group(() => {
    * Projects resource routes
    */
 
-  Route.resource('projects', 'ProjectController').apiOnly()
+  Route.get('/projects', 'ProjectController.index')
+  Route.get('/projects/employeeNotProjects', 'ProjectController.findEmployeeByNotInProject')
+  Route.post('/projects/storeUser', 'ProjectController.storeUserInProject')
 
   /**
    * User resource routes
