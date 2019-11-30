@@ -12,11 +12,28 @@ class ProjectController {
 
     const supervisorID = auth.user.id
 
-    const projects = await Project.find(supervisorID)
-
-    await projects.load('users')
+    const projects = await Project.query()
+      .where({ user_id: supervisorID, status: 1 })
+      .with('users')
+      .fetch()
 
     return response.status(200).json({ data: projects })
+
+  }
+
+  async historyProjects({ response, auth }) {
+
+    const verifyProjects = await Database.from('projects').where({ user_id: auth.user.id })
+
+    const history = []
+
+    for (let i = 0; i < verifyProjects.length; i++) {
+
+      history.push(verifyProjects[i])
+
+    }
+
+    return response.status(200).json({ data: history })
 
   }
 
@@ -93,7 +110,7 @@ class ProjectController {
 
             let verifyStatusProject = await Project.find(verifyProjectUser[i].project_id)
 
-            if (verifyStatusProject === 1) {
+            if (verifyStatusProject.status === 1) {
               return response.status(401).json({ message: 'Empregado já está alocado em um projeto' })
             }
           }
