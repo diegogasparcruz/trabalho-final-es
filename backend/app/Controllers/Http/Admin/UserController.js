@@ -7,53 +7,6 @@ const Role = use('Role')
 
 class UserController {
 
-  async findEmployeeByNotInProject({ response }) {
-
-    const users = await User.all()
-
-    const data = []
-
-    for (let i in users.rows) {
-
-      let user = users.rows[i]
-
-      const roles = await user.getRoles()
-
-      if (roles.toString() === 'employee') {
-
-        let verifyProjectUser = await Database.from('project_users').where({ user_id: user.id })
-
-        if (verifyProjectUser.length > 0) {
-
-          let contProj = 0
-
-          for (let i = 0; i < verifyProjectUser.length; i++) {
-
-            let verifyStatusProject = await Project.find(verifyProjectUser[i].project_id)
-
-            if (verifyStatusProject.status === 1) {
-              contProj++
-            }
-
-          }
-
-          if (contProj === 0)
-            data.push(user)
-
-        } else {
-
-          data.push(user)
-
-        }
-
-      }
-
-    }
-
-    return response.status(200).json({ data })
-
-  }
-
   async index({ response }) {
 
     try {
@@ -151,6 +104,53 @@ class UserController {
     } catch (error) {
       return response.status(error.status)
     }
+
+  }
+
+  async findEmployee({ response }) {
+
+    const users = await User.all()
+
+    const data = []
+
+    for (let i in users.rows) {
+
+      let user = users.rows[i]
+
+      const roles = await user.getRoles()
+
+      if (roles.toString() === 'employee') {
+
+        let verifyProjectUser = await Database.from('project_users').where({ user_id: user.id })
+
+        if (verifyProjectUser.length > 0) {
+
+          let contProj = 0
+
+          for (let i = 0; i < verifyProjectUser.length; i++) {
+
+            let verifyStatusProject = await Project.find(verifyProjectUser[i].project_id)
+
+            if (verifyStatusProject.status === 1) {
+              contProj++
+            }
+
+          }
+
+          if (contProj === 0)
+            data.push(user)
+
+        } else {
+
+          data.push(user)
+
+        }
+
+      }
+
+    }
+
+    return response.status(200).json({ data })
 
   }
 

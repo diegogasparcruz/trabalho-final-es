@@ -1,5 +1,6 @@
 'use strict'
 
+const Database = use('Database')
 const User = use('App/Models/User')
 const Role = use('Role')
 
@@ -22,6 +23,22 @@ class SupervisorController {
     }
 
     return response.status(200).json({ data })
+
+  }
+
+  async historyProjects({ response, params }) {
+
+    const verifyProjects = await Database.from('projects').where({ user_id: params.id })
+
+    const history = []
+
+    for (let i = 0; i < verifyProjects.length; i++) {
+
+      history.push(verifyProjects[i])
+
+    }
+
+    return response.status(200).json({ data: history })
 
   }
 

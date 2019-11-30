@@ -14,6 +14,7 @@ Route.group(() => {
    */
 
   Route.get('/projects', 'ProjectController.index')
+  Route.get('/projects/history', 'ProjectController.historyProjects')
   Route.get('/projects/employeeNotProjects', 'ProjectController.findEmployeeByNotInProject')
   Route.post('/projects/storeUser', 'ProjectController.storeUserInProject')
 

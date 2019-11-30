@@ -39,8 +39,8 @@ Route.group(() => {
   Route.get('/users/:id', 'UserController.show')
   Route.post('/users', 'UserController.store')
   Route.put('/users/:id', 'UserController.update')
-  Route.delete('/users/:id', 'UserController.delete')
-  Route.get('/users/EmployeeNotInProject', 'UserController.findEmployeeByNotInProject')
+  Route.delete('/users/:id', 'UserController.destroy')
+  Route.get('/users/EmployeeNotInProject', 'UserController.findEmployee')
 
   /**
    * User resource routes
@@ -50,6 +50,7 @@ Route.group(() => {
   Route.get('/supervisors/:id', 'SupervisorController.show')
   Route.get('/supervisors/becomeEmployee/:id', 'SupervisorController.becomeEmployee')
   Route.get('/supervisors/becomeSupervisor/:id', 'SupervisorController.becomeSupervisor')
+  Route.get('/supervisors/historyProjects/:id', 'SupervisorController.historyProjects')
 
 })
   .prefix('v1/admin')
