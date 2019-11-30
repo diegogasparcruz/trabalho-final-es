@@ -40,7 +40,7 @@ Route.group(() => {
   Route.post('/users', 'UserController.store')
   Route.put('/users/:id', 'UserController.update')
   Route.delete('/users/:id', 'UserController.destroy')
-  Route.get('/users/EmployeeNotInProject', 'UserController.findEmployee')
+  Route.get('/employeesNotProject', 'UserController.showByNotProject')
 
   /**
    * User resource routes
