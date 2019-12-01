@@ -21,6 +21,16 @@ class ProjectController {
 
   }
 
+  async show({ response, params }) {
+
+    const project = await Project.find(params.id)
+
+    await project.load('users')
+
+    return response.status(200).json({ data: project })
+
+  }
+
   async historyProjects({ response, auth }) {
 
     const verifyProjects = await Database.from('projects').where({ user_id: auth.user.id })
@@ -134,6 +144,23 @@ class ProjectController {
       }
 
     }
+
+  }
+
+  async removeUserProject({ response, params, auth }) {
+
+    const supervisorID = auth.user.id
+
+    const verifySupervisorProject = await Project.findBy('user_id', supervisorID)
+
+    const project = await Project.find(verifySupervisorProject.id)
+
+    const user = await User.find(params.id)
+
+    await project.users().detach([user.id])
+    project.users = await project.users().fetch()
+
+    return response.status(201).json({ data: project })
 
   }
 
