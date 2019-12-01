@@ -26,7 +26,7 @@ export default function Project(props) {
     }, [])
 
     return (
-        <Container className='mt-5 d-flex align-items-cente justify-content-center'>
+        <Container className='pt-5 d-flex align-items-center justify-content-center'>
             <Card className='w-25'>
                 {
                     (user.genre === 'F')
@@ -54,7 +54,7 @@ export default function Project(props) {
             </Card>
 
 
-            <ListDependents userId={userId} />
+            <ListDependents user={user} />
         </Container>
     )
 }

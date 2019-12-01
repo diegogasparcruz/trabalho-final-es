@@ -33,16 +33,20 @@ export default function Home({ history }) {
     const [showModalLogout, setShowLogoutModal] = useState(false)
 
     const [user, setUser] = useState([])
+    const [userType, setUserType] = useState([])
 
     useEffect(() => {
         async function loadUser() {
             const userResponse = await api.get('/v1/auth/isLogged')
             setUser(userResponse.data.user)
+            setUserType(userResponse.data.user.roles[0].slug) //admin ou supervisor
         }
 
         loadUser()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    console.log(userType)
 
     const handleClose = () => setShowLogoutModal(false)
     const handleShow = () => setShowLogoutModal(true)
@@ -51,14 +55,28 @@ export default function Home({ history }) {
     const handleSelected = i => setSelected(i)
 
     const getContent = () => {
-        if (selected === 0)
-            return <ListProjects />
-        else if (selected === 1)
-            return <ListUsers />
-        else if (selected === 2)
-            return <ListDepartaments />
-        else
-            return <div />
+        if (userType === 'admin') {
+            console.log(0)
+            switch (selected) {
+                case 0:
+                    return <ListProjects admin />
+                case 1:
+                    return <ListUsers admin homeAdmin />
+                case 2:
+                    return <ListDepartaments admin />
+                default:
+                    return <div />
+            }
+
+        } else if (userType === 'supervisor') {
+            console.log(1)
+            switch (selected) {
+                case 0:
+                    return <ListProjects supervisor />
+                default:
+                    return <div />
+            }
+        }
     }
 
     const handleLogout = () => {
@@ -74,9 +92,17 @@ export default function Home({ history }) {
                     <p className='text-white text-center mb-5'>Bem-vindo {user.name}</p>
 
                     <Container id='menu-container' className='p-0 m-0'>
-                        <MenuItem text='Projetos' icon={faTasks} callback={() => handleSelected(0)} />
-                        <MenuItem text='Usuários' icon={faUsers} callback={() => handleSelected(1)} />
-                        <MenuItem text='Departamentos' icon={faProjectDiagram} callback={() => handleSelected(2)} />
+
+                        < MenuItem text='Projetos' icon={faTasks} callback={() => handleSelected(0)} />
+                        {
+                            (userType === 'admin')
+                                ?
+                                <>
+                                    <MenuItem text='Usuários' icon={faUsers} callback={() => handleSelected(1)} />
+                                    <MenuItem text='Departamentos' icon={faProjectDiagram} callback={() => handleSelected(2)} />
+                                </>
+                                : null
+                        }
                         <MenuItem text='Sair' icon={faSignOutAlt} callback={handleShow} />
                     </Container>
                 </Col>

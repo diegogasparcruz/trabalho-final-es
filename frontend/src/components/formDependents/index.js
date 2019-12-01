@@ -7,8 +7,6 @@ import api from '../../service/api'
 
 export default function FormDependents({ userId }) {
 
-    console.log('uid', userId)
-
     const [validated, setValidated] = useState(false);
 
     const [name, setName] = useState('');

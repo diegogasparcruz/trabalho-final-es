@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Table, Container, Image, Button, Row, Col, Modal } from 'react-bootstrap'
 
-import api from '../../service/api.js'
 
 import notFound from '../../assets/page_not_found.svg'
 
@@ -12,19 +11,11 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { parseISO } from 'date-fns'
 
 
-export default function ListUsers({ userId }) {
+export default function ListUsers({ user }) {
 
-    const [dependents, setDependents] = useState([])
+    const dependents = user.dependents
+
     const [showForm, setShowForm] = useState(false)
-
-    useEffect(() => {
-        async function loadUsers() {
-            const projectsResponse = await api.get(`/v1/admin/users/${userId}`)
-            setDependents(projectsResponse.data.data[0].dependents)
-        }
-
-        loadUsers()
-    }, [userId])
 
     const handleClose = () => setShowForm(false);
     const handleShow = () => setShowForm(true);
@@ -44,7 +35,7 @@ export default function ListUsers({ userId }) {
                 </Col>
             </Row>
 
-            <Table striped bordered hover  >
+            <Table className='bg-white' striped bordered hover  >
                 <thead>
                     <tr>
                         <th>#</th>
@@ -56,7 +47,7 @@ export default function ListUsers({ userId }) {
 
                 <tbody>
                     {
-                        dependents.length > 0
+                        dependents && dependents.length > 0
                             ? dependents.map(dependent => (
                                 <tr key={dependent.id}>
 
@@ -84,7 +75,7 @@ export default function ListUsers({ userId }) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <FormDependents userId={userId} />
+                    <FormDependents userId={user.id} />
                 </Modal.Body>
             </Modal>
         </Container >
