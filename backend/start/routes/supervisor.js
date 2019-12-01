@@ -15,7 +15,7 @@ Route.group(() => {
 
   Route.get('/projects', 'ProjectController.index')
   Route.get('/projects/:id', 'ProjectController.show')
-  Route.get('/projects/history', 'ProjectController.historyProjects')
+  Route.get('/projects/history/supervisor', 'ProjectController.historyProjects')
   Route.get('/projects/employeeNotProjects', 'ProjectController.findEmployeeByNotInProject')
   Route.post('/projects/storeUser', 'ProjectController.storeUserInProject')
   Route.get('/projects/removeUser/:id', 'ProjectController.removeUserProject')
