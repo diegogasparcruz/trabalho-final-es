@@ -26,9 +26,10 @@ export default function MenuItem(props) {
     }
 
     const f = () => {
-        if (props.callback)
-            props.callback();
-        markItem();
+        console.log('a')
+        props.callback();
+
+        markItem()
     }
 
     return (
